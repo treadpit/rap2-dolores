@@ -57,10 +57,10 @@ class InterfaceEditor extends Component<InterfaceEditorProps, InterfaceEditorSta
     super(props)
     this.state = {
       ...InterfaceEditor.mapPropsToState(props),
-      summaryState: {
-        bodyOption: BODY_OPTION.FORM_DATA,
-        requestParamsType: REQUEST_PARAMS_TYPE.QUERY_PARAMS,
-      },
+      // summaryState: {
+      //   bodyOption: BODY_OPTION.FORM_DATA,
+      //   requestParamsType: REQUEST_PARAMS_TYPE.QUERY_PARAMS,
+      // },
       moveInterfaceDialogOpen: false,
     }
     this.summaryStateChange = this.summaryStateChange.bind(this)
@@ -68,6 +68,8 @@ class InterfaceEditor extends Component<InterfaceEditorProps, InterfaceEditorSta
   static mapPropsToState(prevProps: any, prevStates: any = {}) {
     const { auth, itf } = prevProps
     const editable = !!(itf.locker && itf.locker.id === auth.id)
+    const bodyOption = itf.bodyOption ? itf.bodyOption.toUpperCase() : BODY_OPTION.FORM_DATA
+    const requestParamsType = itf.requestParamsType ? itf.requestParamsType.toUpperCase() : REQUEST_PARAMS_TYPE.QUERY_PARAMS
     return {
       ...prevStates,
       itf,
@@ -77,6 +79,10 @@ class InterfaceEditor extends Component<InterfaceEditorProps, InterfaceEditorSta
           ? prevStates.properties
           : itf.properties?.map((property: any) => ({ ...property })),
       editable,
+      summaryState: {
+        bodyOption,
+        requestParamsType,
+      },
     }
   }
   getChildContext() {
@@ -141,6 +147,7 @@ class InterfaceEditor extends Component<InterfaceEditorProps, InterfaceEditorSta
           itf={itf}
           active={true}
           editable={editable}
+          bodyOption={this.state.summaryState.bodyOption}
           stateChangeHandler={this.summaryStateChange}
           handleChangeInterface={this.handleChangeInterface}
         />
