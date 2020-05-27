@@ -113,7 +113,8 @@ class InterfaceSummary extends Component<
   constructor(props: any) {
     super(props)
     this.state = {
-      bodyOption: BODY_OPTION.FORM_DATA,
+      // bodyOption: BODY_OPTION.FORM_DATA,
+      bodyOption: props.bodyOption || BODY_OPTION.FORM_DATA,
       requestParamsType:
         props.itf.method === 'POST'
           ? REQUEST_PARAMS_TYPE.BODY_PARAMS
@@ -186,6 +187,7 @@ class InterfaceSummary extends Component<
       repository = {},
       itf = {},
       editable,
+      bodyOption,
       handleChangeInterface,
     } = this.props
     const { requestParamsType } = this.state
@@ -399,7 +401,8 @@ class InterfaceSummary extends Component<
                 type="radio"
                 name="inlineRadioOptions"
                 id="inlineRadio1"
-                value="option1"
+                defaultChecked={bodyOption === BODY_OPTION.FORM_DATA}
+                value={BODY_OPTION.FORM_DATA}
               />
               <label className="form-check-label" htmlFor="inlineRadio1">
                 form-data
@@ -414,7 +417,8 @@ class InterfaceSummary extends Component<
                 type="radio"
                 name="inlineRadioOptions"
                 id="inlineRadio2"
-                value="option2"
+                defaultChecked={bodyOption === BODY_OPTION.FORM_URLENCODED}
+                value={BODY_OPTION.FORM_URLENCODED}
               />
               <label className="form-check-label" htmlFor="inlineRadio2">
                 x-www-form-urlencoded
@@ -426,7 +430,8 @@ class InterfaceSummary extends Component<
                 type="radio"
                 name="inlineRadioOptions"
                 id="inlineRadio3"
-                value="option3"
+                defaultChecked={bodyOption === BODY_OPTION.RAW}
+                value={BODY_OPTION.RAW}
               />
               <label className="form-check-label" htmlFor="inlineRadio3">
                 raw
@@ -438,7 +443,8 @@ class InterfaceSummary extends Component<
                 type="radio"
                 name="inlineRadioOptions"
                 id="inlineRadio4"
-                value="option4"
+                defaultChecked={bodyOption === BODY_OPTION.BINARY}
+                value={BODY_OPTION.BINARY}
               />
               <label className="form-check-label" htmlFor="inlineRadio4">
                 binary
