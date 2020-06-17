@@ -45,7 +45,7 @@ function InterfaceEditorToolbar(props: Props) {
   const loading = useSelector((state: RootState) => state.loading)
 
   const classes = useStyles()
-  // if (!repository.canUserEdit) { return null }
+  if (!repository.canUserEdit) { return null }
   if (editable) {
     return (
       <div className="InterfaceEditorToolbar">
